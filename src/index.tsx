@@ -34,6 +34,16 @@ app.get('/api/health', (c) => {
   });
 });
 
+// Debug endpoint (remove in production)
+app.get('/api/debug/env', (c) => {
+  return c.json({
+    NODE_ENV: process.env.NODE_ENV || 'not set',
+    DATABASE_URL: process.env.DATABASE_URL ? 'configured ✅' : 'NOT CONFIGURED ❌',
+    JWT_SECRET: process.env.JWT_SECRET ? 'configured ✅' : 'NOT CONFIGURED ❌',
+    PORT: process.env.PORT || '3000'
+  });
+});
+
 // Root route - Serve main HTML
 app.get('/', (c) => {
   return c.html(`
