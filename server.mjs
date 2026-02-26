@@ -1,27 +1,30 @@
 // Node.js HTTP server for Railway/Render deployment
 import { serve } from '@hono/node-server';
-import { readFileSync } from 'fs';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-// Load environment variables from .env.production if DATABASE_URL is not set
-if (!process.env.DATABASE_URL) {
-  console.log('⚠️  DATABASE_URL not found in environment, loading from .env.production...');
-  dotenv.config({ path: '.env.production' });
+// Get current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// ALWAYS load .env.production
+console.log('📁 Loading environment from .env.production...');
+const envPath = join(__dirname, '.env.production');
+const result = dotenv.config({ path: envPath });
+
+if (result.error) {
+  console.error('⚠️  Failed to load .env.production:', result.error.message);
+} else {
+  console.log('✅ Loaded .env.production successfully');
 }
 
 // Import the Hono app
-let app;
-try {
-  const module = await import('./dist/_worker.js');
-  app = module.default || module;
-  
-  if (!app || !app.fetch) {
-    console.error('❌ Failed to load app from dist/_worker.js');
-    console.error('Module keys:', Object.keys(module));
-    process.exit(1);
-  }
-} catch (error) {
-  console.error('❌ Error loading worker:', error);
+const module = await import('./dist/_worker.js');
+const app = module.default || module;
+
+if (!app || !app.fetch) {
+  console.error('❌ Failed to load app from dist/_worker.js');
   process.exit(1);
 }
 
