@@ -1,18 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "dist/_worker.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/dist/_worker.js"
-    }
-  ]
+  "buildCommand": "echo 'Build já foi feito localmente'",
+  "outputDirectory": "dist",
+  "installCommand": "echo 'Sem dependências para instalar'",
+  "devCommand": "npm run dev",
+  "framework": null
 }
