@@ -2,7 +2,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
-import { serveStatic } from 'hono/cloudflare-workers';
+import { serveStatic } from '@hono/node-server/serve-static';
 
 // Import routes
 import authRoutes from './routes/auth';
@@ -17,7 +17,7 @@ app.use('/*', logger());
 app.use('/api/*', cors());
 
 // Serve static files
-app.use('/static/*', serveStatic({ root: './public' }));
+app.use('/static/*', serveStatic({ root: './dist' }));
 
 // API Routes
 app.route('/api/auth', authRoutes);
