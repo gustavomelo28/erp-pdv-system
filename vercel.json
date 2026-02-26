@@ -5,6 +5,11 @@
   "installCommand": "npm install",
   "framework": null,
   "outputDirectory": "dist",
+  "functions": {
+    "dist/_worker.js": {
+      "runtime": "edge"
+    }
+  },
   "env": {
     "DATABASE_URL": "postgresql://neondb_owner:npg_dmGzNnsx6tf0@ep-divine-mouse-acs7dan0-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require",
     "JWT_SECRET": "erp-pdv-secret-key-production-2026",
