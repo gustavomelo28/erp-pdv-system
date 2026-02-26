@@ -31,6 +31,7 @@
     "@hono/vite-dev-server": "^0.18.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "vercel": "^50.23.2",
     "vite": "^6.3.5",
     "wrangler": "^4.4.0"
   }
