@@ -1,7 +1,6 @@
 {
-  "buildCommand": "echo 'Build já foi feito localmente'",
+  "buildCommand": "./build.sh",
   "outputDirectory": "dist",
-  "installCommand": "echo 'Sem dependências para instalar'",
-  "devCommand": "npm run dev",
+  "installCommand": "echo 'Usando build pré-compilado'",
   "framework": null
 }
