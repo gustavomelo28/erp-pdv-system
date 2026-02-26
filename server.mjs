@@ -1,6 +1,13 @@
 // Node.js HTTP server for Railway/Render deployment
 import { serve } from '@hono/node-server';
 import { readFileSync } from 'fs';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env.production if DATABASE_URL is not set
+if (!process.env.DATABASE_URL) {
+  console.log('⚠️  DATABASE_URL not found in environment, loading from .env.production...');
+  dotenv.config({ path: '.env.production' });
+}
 
 // Import the Hono app
 let app;
@@ -22,7 +29,8 @@ const port = parseInt(process.env.PORT || '3000', 10);
 
 console.log(`🚀 Starting server on port ${port}...`);
 console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-console.log(`🗄️  Database: ${process.env.DATABASE_URL ? 'Configured' : 'NOT CONFIGURED'}`);
+console.log(`🗄️  Database: ${process.env.DATABASE_URL ? 'Configured ✅' : 'NOT CONFIGURED ❌'}`);
+console.log(`🔐 JWT Secret: ${process.env.JWT_SECRET ? 'Configured ✅' : 'NOT CONFIGURED ❌'}`);
 
 serve({
   fetch: app.fetch,
